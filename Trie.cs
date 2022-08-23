@@ -9,6 +9,8 @@ public class Trie
 		_root = new Node("^", 0, null);
     }
 
+	
+
 	public Node Prefix(string stringIn)
     {
 		Node currentNode = _root;
@@ -44,7 +46,26 @@ public class Trie
 		current.Children.Add(new Node('$', current.Depth + 1, current);
     }
 
+	public void InsertList(List<string> items)
+    {
+		foreach(string item in items)
+        		Insert(item);
+    }
 
+	public void Delete(string s)
+    {
+		if (Search(s))
+        {
+			Node node = Prefix(s).FindChildNode('$');
+			while(node.IsLeaf())
+            {
+				Node parent = node.Parent;
+				parent.Children.DeleteChild(node.Value);
+				node = parent;
+            }
+
+        }
+    }
 }
 
 public class Node
